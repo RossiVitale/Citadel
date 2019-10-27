@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lauro/CLionProjects/citadel/Map.cpp
+fstream
+-
+Map.h
+/home/lauro/CLionProjects/citadel/Map.h
+
+/home/lauro/CLionProjects/citadel/Map.h
+vector
+-
+Tile.h
+/home/lauro/CLionProjects/citadel/Tile.h
+
+/home/lauro/CLionProjects/citadel/TextureManager.h
+iostream
+-
+SFML/Graphics.hpp
+/home/lauro/CLionProjects/citadel/SFML/Graphics.hpp
+
+/home/lauro/CLionProjects/citadel/Tile.h
+SFML/Graphics.hpp
+-
+SFML/System.hpp
+/home/lauro/CLionProjects/citadel/SFML/System.hpp
+TextureManager.h
+/home/lauro/CLionProjects/citadel/TextureManager.h
+
