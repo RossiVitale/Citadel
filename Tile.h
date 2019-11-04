@@ -10,6 +10,7 @@
 class Tile{
 public:
     sf::IntRect intRect{0,0,72,36};
+    sf::FloatRect clickRect{};
     TextureManager* tex;
     sf::Texture texture;
     sf::Sprite sprite;

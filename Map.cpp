@@ -16,33 +16,28 @@ if(mapFile.is_open()) {
                 case '0':
                     tile = new Terrain(Plain, axis, ord);
                     tileMap->push_back(*tile);
-                    std::cout << "plain at coords " << axis << " " << ord << std::endl;
                     axis += 72;
                     break;
 
                 case '1':
                     tile = new Terrain(Forest, axis, ord);
                     tileMap->push_back(*tile);
-                    std::cout << "forest at coords " << axis << " " << ord << std::endl;
                     axis += 72;
                     break;
 
                 case '2':
                     tile = new Terrain(Water, axis, ord);
                     tileMap->push_back(*tile);
-                    std::cout << "water at coords " << axis << " " << ord << std::endl;
                     axis += 72;
                     break;
 
                 case '3':
                     tile = new Building(Cityhall, 1, axis, ord);
                     tileMap->push_back(*tile);
-                    std::cout << "cityhall at coords " << axis << " " << ord << std::endl;
                     axis += 72;
                     break;
 
                 case '\n':
-                    std::cout << "new row" << std::endl;
                     if(ord<532) {
                         i++;
                         axis = 1000 - (36 * i);

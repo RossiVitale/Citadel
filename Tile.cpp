@@ -5,6 +5,8 @@ Terrain::Terrain(TileType type, float axis, float ord) {
     this->axis =axis;
     this->ord=ord;
     this->type=type;
+    this->clickRect={this->axis+18, this->ord+9, 36,18};
+
 
     switch (type) {
 
@@ -58,6 +60,7 @@ Building::Building(TileType type, int tileLevel,float axis, float ord) {
     this->axis =axis;
     this->ord=ord;
     this->type=type;
+    this->clickRect={this->axis+18, this->ord+9, 36,18};
 
     switch (type){
         case Cityhall:
