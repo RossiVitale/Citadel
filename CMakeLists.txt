@@ -3,13 +3,14 @@ project(citadel)
 set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_NAME citadel)
 
-
 set(SOURCE_FILES main.cpp)
 
 add_executable(citadel ${SOURCE_FILES} Tile.cpp Tile.h Game.cpp Game.h TextureManager.cpp TextureManager.h Map.cpp Map.h)
 add_library(core ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
+
+add_subdirectory(test)
 
 find_package(SFML 2 REQUIRED system window graphics network audio)
 
