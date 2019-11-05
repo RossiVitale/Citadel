@@ -1,4 +1,0 @@
-/home/lauro/CLionProjects/citadel/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/lauro/CLionProjects/citadel/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/lauro/CLionProjects/citadel/cmake-build-debug/CMakeFiles/citadel.dir
-/home/lauro/CLionProjects/citadel/cmake-build-debug/CMakeFiles/core.dir

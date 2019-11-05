@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Citadel.dir/main.cpp.o CMakeFiles/Citadel.dir/TextureManager.cpp.o CMakeFiles/Citadel.dir/Tile.cpp.o CMakeFiles/Citadel.dir/GameMap.cpp.o  -o Citadel  -L/home/lauro/CLionProjects/citadel/SFML_LIBRARY_DIR -Wl,-rpath,/home/lauro/CLionProjects/citadel/SFML_LIBRARY_DIR -lsfml-graphics -lsfml-window -lsfml-system 
