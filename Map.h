@@ -9,7 +9,7 @@
 class Map{
 public:
 
-    Map(std::vector<Tile> *tileMap, Tile* tile);
+    Map(std::vector<Tile> &tileMap, Tile* tile);
 
 
 };

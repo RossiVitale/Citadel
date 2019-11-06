@@ -16,7 +16,7 @@ Game::Game() {
 
 
     Tile* tile = nullptr;
-    Map map(&tileMap, tile);
+    Map map(tileMap, tile);
 
     sf::Event event{};
 
