@@ -6,48 +6,58 @@
 #include "TextureManager.h"
 
 
+enum TileType {
+    Plain, Water, Forest, Cityhall, Residential, Farm,
+    Park, Commercial, WorkingZone, CleanEnergy, IndEnergy, EventZone, Decoration
+};
 
-class Tile{
-public:
-    sf::IntRect intRect{0,0,72,36};
+
+class Tile {
+protected:
+    sf::IntRect intRect{0, 0, 72, 36};
     sf::FloatRect clickRect{};
-    TextureManager* tex;
-    sf::Texture texture;
     sf::Sprite sprite;
     TileType type;
-    int tileLevel;
-    int maxLevel;
     float axis;
     float ord;
 
+public:
+    void manageSprite(TextureManager &txm, const std::string &name);
 
+    sf::IntRect &getIntRect();
+
+    sf::FloatRect &getClickRect();
+
+    sf::Sprite &getSprite();
+
+    float getCoords(const std::string &coord);
 };
-
-
 
 /////////////////////////////////////////////////////////////////
 
-
-
-class Terrain : public Tile{
-public:
-    TileType type;
+class Terrain : public Tile {
+private:
     bool allowConstruction;
+public:
+    Terrain(TileType type, float axis, float ord, TextureManager &txm);
 
-    explicit Terrain(TileType type, float axis, float ord);
+    void reclaim(std::vector<Tile> &tileMap, TextureManager &txm);
 };
 
+/////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////
-
-
-
-class Building : public Tile{
+class Building : public Tile {
+private:
+    int tileLevel;
+    int maxLevel;
+    int workers;
+    int residents;
 public:
-    TileType type;
+    Building(TileType type, int tileLevel, float axis, float ord, TextureManager &txm);
 
-    explicit Building(TileType type, int tileLevel,  float axis, float ord);
+    void dismantle(std::vector<Tile> &tileMap, TextureManager &txm);
+
+    void upgrade();
 };
 
 #endif

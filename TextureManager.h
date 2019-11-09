@@ -4,17 +4,20 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 
-enum TileType{ Plain, Water, Forest, Cityhall, Residential, Farm,
-    Park, Commercial, WorkingZone, CleanEnergy, IndEnergy, EventZone, Decoration};
 
 class TextureManager {
+private:
+
+    std::map<std::string, sf::Texture> textures;   //conservare tutte le texture
+
 public:
-    std::vector<sf::Texture> TextureAtlas;
-    sf::Texture texture;
 
+    void loadTexture(const std::string &name, const std::string &filename);   //nome con cui conservare e path
 
-    explicit TextureManager(TileType type);
+    sf::Texture &getRefTex(
+            const std::string &name);   //restituisce un riferimento alla texture il cui nome viene passato alla funzione
 
+    TextureManager();
 };
 
 #endif

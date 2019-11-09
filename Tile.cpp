@@ -1,54 +1,70 @@
 #include "Tile.h"
 
 
-Terrain::Terrain(TileType type, float axis, float ord) {
-    this->axis =axis;
-    this->ord=ord;
-    this->type=type;
-    this->clickRect={this->axis+18, this->ord+9, 36,18};
+void Tile::manageSprite(TextureManager &txm, const std::string &name) {
+    sprite.setTexture(txm.getRefTex(name));
+    sprite.setPosition(this->axis, this->ord);
+    sprite.setTextureRect(intRect);
+}
 
+sf::FloatRect &Tile::getClickRect() {
+    return this->clickRect;
+}
+
+sf::IntRect &Tile::getIntRect() {
+    return this->intRect;
+}
+
+
+float Tile::getCoords(const std::string &coord) {
+    if (coord == "axis")
+        return this->axis;
+    else if (coord == "ord")
+        return this->ord;
+    else
+        std::cout << "error: only -axis- or -ord- request allowed" << std::endl;
+}
+
+sf::Sprite &Tile::getSprite() {
+    return this->sprite;
+}
+
+Terrain::Terrain(TileType type, float axis, float ord, TextureManager &txm) {
+    this->axis = axis;
+    this->ord = ord;
+    this->type = type;
 
     switch (type) {
-
         case Plain: {
-            type=Plain;
-            this->tex = new TextureManager(Plain);
-            this->allowConstruction = true;
-            this->tileLevel = 1;
-            this->maxLevel = 1;
+            manageSprite(txm, "Plain");
+            allowConstruction = true;
             break;
         }
-
 
         case Forest: {
-            type= Forest;
-            this->tex = new TextureManager(Forest);
+            manageSprite(txm, "Forest");
             this->allowConstruction = false;
-            this->tileLevel = 1;
-            this->maxLevel = 1;
             break;
         }
-
 
         case Water: {
-            type=Water;
-            this->tex = new TextureManager(Water);
+            manageSprite(txm, "Water");
             this->allowConstruction = false;
-            this->tileLevel = 1;
-            this->maxLevel = 1;
             break;
         }
 
-        default :{
-            std::cout<< "error: not a terrain"<< std::endl;
+        default : {
+            std::cout << "error: not a terrain" << std::endl;
             break;
         }
     }
-    this->sprite.setPosition(this->axis, this->ord);
-    this->texture=tex->TextureAtlas.at(0);
-    sprite.setTexture(texture);
-    sprite.setTextureRect(intRect);
+    clickRect = {this->axis + 18, this->ord + 9, 36, 18};
+}
 
+void Terrain::reclaim(std::vector<Tile> &tileMap, TextureManager &txm) {
+    if (type == Forest || type == Water)
+        //costo e inquinamento e felicità
+        tileMap.push_back(Terrain(Plain, this->axis, this->ord, txm));
 }
 
 
@@ -56,100 +72,115 @@ Terrain::Terrain(TileType type, float axis, float ord) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-Building::Building(TileType type, int tileLevel,float axis, float ord) {
-    this->axis =axis;
-    this->ord=ord;
-    this->type=type;
-    this->clickRect={this->axis+18, this->ord+9, 36,18};
+Building::Building(TileType type, int tileLevel, float axis, float ord, TextureManager &txm) {
+    this->axis = axis;
+    this->ord = ord;
+    this->type = type;
+    this->tileLevel = tileLevel;
 
-    switch (type){
+    switch (type) {
         case Cityhall:
-            type=Cityhall;
-            this->tex = new TextureManager(Cityhall);
-            this->tileLevel=tileLevel;
-            this->maxLevel=1;
+            this->maxLevel = 1;
+            manageSprite(txm, "Cityhall");
             break;
-
 
         case Residential:
-            type=Residential;
-            this->tex = new TextureManager(Residential);
-            this->tileLevel=tileLevel;
-            this->maxLevel=3;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "Residential1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "Residential2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "Residential3");
             break;
-
 
         case Farm:
-            type=Farm;
-            this->tex = new TextureManager(Farm);
-            this->maxLevel=3;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "Farm1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "Farm2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "Farm3");
             break;
-
 
         case Park:
-            type=Park;
-            this->tex = new TextureManager(Park);
-            this->maxLevel=1;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 1;
+            manageSprite(txm, "Park");
             break;
-
 
         case Commercial:
-            type=Commercial;
-            this->tex = new TextureManager(Commercial);
-            this->maxLevel=3;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "Commercial1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "Commercial2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "Commercial3");
             break;
-
 
         case WorkingZone:
-            type=WorkingZone;
-            this->tex = new TextureManager(WorkingZone);
-            this->maxLevel=3;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "Work1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "Work2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "Work3");
             break;
-
 
         case CleanEnergy:
-            type=CleanEnergy;
-            this->tex = new TextureManager(CleanEnergy);
-            this->maxLevel=3;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "CleanEnergy1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "CleanEnergy2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "CleanEnergy3");
             break;
 
-
-
         case IndEnergy:
-            type=IndEnergy;
-            this->tex = new TextureManager(IndEnergy);
-            this->maxLevel=3;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 3;
+            if (tileLevel == 1)
+                manageSprite(txm, "IndEnergy1");
+            else if (tileLevel == 2)
+                manageSprite(txm, "IndEnergy2");
+            else if (tileLevel == 3)
+                manageSprite(txm, "IndEnergy3");
             break;
 
 
         case EventZone:   //livello 1: static        livello 2: dinamic
-            type=EventZone;
-            this->tex = new TextureManager(EventZone);
-            this->maxLevel=2;
-            this->tileLevel=tileLevel;
+            this->maxLevel = 2;
+            if (tileLevel == 1)
+                manageSprite(txm, "EventStatic");
+            else if (tileLevel == 2)
+                manageSprite(txm, "EventAnim");
             break;
-
 
 
         case Decoration:
-            type=Decoration;
-            this->tex = new TextureManager(Decoration);
+            this->maxLevel = 1;
+            manageSprite(txm, "Decoration");
             break;
 
         default :
-            std::cout<< "error: not a terrain"<< std::endl;
+            std::cout << "error: not a terrain" << std::endl;
             break;
 
-
     }
-    this->sprite.setPosition(this->axis, this->ord);
-    this->texture=tex->TextureAtlas.at(this->tileLevel-1);
-    sprite.setTexture(texture);
-    sprite.setTextureRect(intRect);
+    clickRect = {this->axis + 18, this->ord + 9, 36, 18};
+
+}
+
+void Building::upgrade() {
+    if (tileLevel != maxLevel) {
+        //aumenta di livello
+    }
+}
+
+void Building::dismantle(std::vector<Tile> &tileMap, TextureManager &txm) {
+    if (type != Cityhall)
+        //costo e attributi vari
+        tileMap.push_back(Terrain(Plain, this->axis, this->ord, txm));
 }

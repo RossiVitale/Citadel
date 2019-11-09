@@ -3,26 +3,22 @@
 #define CITADEL_GAME_H
 
 #include "SFML/Graphics.hpp"
-#include "Tile.h"
+#include "Map.h"
 
 
 class Game {
-public:
-
+private:
     sf::RenderWindow renderWindow;
-    sf::IntRect intRect{0,0,72,36};
     sf::Clock clock;
-    std::vector<Tile> tileMap;
     sf::View view;
-    bool navigating = false;
     sf::Vector2f oldPos;
 
-
-
+public:
     Game();
     void resizeView();
     void zoomView(int zoom);
-};
 
+    void animateWorld(Map &map);
+};
 
 #endif //CITADEL_GAME_H

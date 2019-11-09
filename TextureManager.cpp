@@ -1,113 +1,42 @@
 #include "TextureManager.h"
 
-TextureManager::TextureManager(TileType type) {
 
-    switch (type) {
-        case Plain :
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Plain.png");
-            this->TextureAtlas.push_back(texture);
-            break;
+TextureManager::TextureManager() {
+    loadTexture("Plain", "media/Plain.png");
+    loadTexture("Water", "media/Water.png");
+    loadTexture("Forest", "media/Forest.png");
+    loadTexture("Cityhall", "media/Cityhall.png");
+    loadTexture("CleanEnergy1", "media/CleanEnergy1.png");
+    loadTexture("CleanEnergy2", "media/CleanEnergy2.png");
+    loadTexture("CleanEnergy3", "media/CleanEnergy3.png");
+    loadTexture("IndEnergy1", "media/IndEnergy1.png");
+    loadTexture("IndEnergy2", "media/IndEnergy2.png");
+    loadTexture("IndEnergy3", "media/IndEnergy3.png");
+    loadTexture("Commercial1", "media/Commercial1.png");
+    loadTexture("Commercial2", "media/Commercial2.png");
+    loadTexture("Commercial3", "media/Commercial3.png");
+    loadTexture("Decoration", "media/Decoration.png");
+    loadTexture("EventStatic", "media/EventStatic.png");
+    loadTexture("EventAnim", "media/EventAnim.png");
+    loadTexture("Farm1", "media/Farm1.png");
+    loadTexture("Farm2", "media/Farm2.png");
+    loadTexture("Farm3", "media/Farm3.png");
+    loadTexture("Park", "media/Park.png");
+    loadTexture("Residential1", "media/Residential1.png");
+    loadTexture("Residential2", "media/Residential2.png");
+    loadTexture("Residential3", "media/Residential3.png");
+    loadTexture("Work1", "media/Work1.png");
+    loadTexture("Work2", "media/Work2.png");
+    loadTexture("Work3", "media/Work3.png");
+}
 
-        case Forest:
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Forest.png");
-            this->TextureAtlas.push_back(texture);
-            break;
+void TextureManager::loadTexture(const std::string &name, const std::string &filename) {
+    sf::Texture tex;
+    tex.loadFromFile(filename);
 
-        case Water:
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Water.png");
-            this->TextureAtlas.push_back(texture);
-            break;
+    this->textures[name] = tex;
+}
 
-        case Cityhall:
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Cityhall.png");
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case Residential:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/Residential1.png");  //size 4
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Residential2.png");   //size 4
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Residential3.png");    //size 5
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case Farm:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/Farm1.png");   //size 3
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Farm2.png");    //size 6
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Farm3.png");    //size 3
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case Park:
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Park.png");
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case Commercial:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/Commercial1.png");  //size 8
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Commercial2.png");   //size 8
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Commercial3.png");   //size 8
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case IndEnergy:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/IndEnergy1.png");  //size 5
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/IndEnergy2.png");  //size 5
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/IndEnergy3.png");   //size 5
-            this->TextureAtlas.push_back(texture);
-            break;
-
-
-        case CleanEnergy:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/CleanEnergy1.png");  //size 1
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/CleanEnergy2.png");  //size 3
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/CleanEnergy3.png");  //size 3
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case WorkingZone:
-            this->TextureAtlas.reserve(3);
-            this->texture.loadFromFile("media/Work1.png");   //size 5
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Work2.png");   //size 5
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/Work3.png");   //size 5
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case Decoration:
-            this->TextureAtlas.reserve(1);
-            this->texture.loadFromFile("media/Decoration.png");
-            this->TextureAtlas.push_back(texture);
-            break;
-
-        case EventZone:
-            this->TextureAtlas.reserve(2);
-            this->texture.loadFromFile("media/EventStatic.png");  //size 1
-            this->TextureAtlas.push_back(texture);
-            this->texture.loadFromFile("media/EventAnim.png");   //size 4
-            this->TextureAtlas.push_back(texture);
-            break;
-
-    }
-
+sf::Texture &TextureManager::getRefTex(const std::string &name) {
+    return this->textures.at(name);
 }
